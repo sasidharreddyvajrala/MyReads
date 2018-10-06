@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
          return (        
           <div className="search-books">
             <div className="search-books-bar">
-              <Link className="close-search" to="/">Close</Link>
+              <Link className="close-search" onClick={this.props.showSearchPage} to="/">Close</Link>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -19,7 +19,7 @@ import {Link} from 'react-router-dom'
                   you don't find a specific author or title. Every search is limited by search terms.
                 */
                  }
-                <input type="text" placeholder="Search by title or author" ref="name" onChange={()=>this.props.handleSearch(this.refs.name.value)}></input>
+                <input type="text" placeholder="Search by title or author" onChange={this.props.handleSearch}></input>
               </div>
             </div>
             <div className="search-books-results">

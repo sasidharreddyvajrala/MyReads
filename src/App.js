@@ -15,41 +15,64 @@ class BooksApp extends React.Component {
     books:[],
     showSearchPage:false,
     bookResults:[],
-    value:'',
-    addbook:[]
+    option:'',
+    addbook:[],
+    shelfbooks:[],
+    query:'',
+    currentlyReading:[
+      {
+       url:"http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
+       bookTitle:'To Kill a Mockingbird',
+       bookAuthors:'Harper Lee'
+      },
+    
+    ]
   };
     getBooks=()=>{
-     const shelfbooks=BooksAPI.getAll(); 
-     shelfbooks.then(data=>{this.setState({books:data})});
+    
     };
-    handleMove=(event)=>{
-      const value=event.target.value;
-      this.setState({value});
+    handlemove=(event)=>{
+      const option=event.target.value;
+      console.log(option);
+      this.setState({option});
       //this.setState({addBook});
     };
 
-    handleSearch=(query)=>{
-        const searchbooks=BooksAPI.search(query);
+    handleSearch=(e)=>{
+        const query=e.target.value;
+        console.log(query);
+        const searchbooks=BooksAPI.search(this.setState({query}));
+        console.log("search: ", searchbooks)
         searchbooks.then(data=>this.setState({bookResults:data}));
     };
     showSearchPage=()=>{
-      this.setState({ showSearchPage: true});
-    };
 
+      this.setState({ showSearchPage:(this.state.showSearchPage) ? false : true});
+    };
+    handleCurrentlyReading=()=>{
+
+    };
+    componentDidMount(){
+      const shelfbooks=BooksAPI.getAll(); 
+      console.log(shelfbooks);
+      shelfbooks.then(data=>{this.setState({books:data})});
+    }
   render() {
-    console.log(this.state.bookResults);
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <Search handleMove={this.handleMove} 
+          <Search handlemove={this.handlemove} 
                   handleSearch={this.handleSearch}
                   bookResults={this.state.bookResults}
                   value={this.state.value}
-                  showSearchPage={!(this.showSearchPage)}/>
+                  showSearchPage={this.showSearchPage}/>
         ) : (
           <div>
             <MainPage 
-                  showSearchPage={this.showSearchPage}/>
+                  showSearchPage={!this.showSearchPage}
+                  handlemove={this.handlemove}
+                  value={this.state.option}
+                  />
           </div>
         )}
       </div>
