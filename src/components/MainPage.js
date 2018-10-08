@@ -8,6 +8,7 @@ class MainPage extends React.Component{
 
      
      render(){
+      //  console.log(this.props.showSearch);
          return(
             <div className="list-books">
             <div className="list-books-title">
@@ -17,29 +18,23 @@ class MainPage extends React.Component{
               <div>
                <CurrentlyReading 
                 handlemove={this.props.handlemove} 
-                value={this.props.option}
-                currentlyReading={this.props.currentlyReading}
-                handleCurrentlyReading={this.props.handleCurrentlyReading}
-                optionCurrentlyReading={this.props.optionCurrentlyReading}
+                currentshelf={this.props.currentshelf1}
+                books={this.props.books}
                 />
                <WantToRead 
                handlemove={this.props.handlemove} 
-               value={this.props.option}
-               WantToRead={this.props.WantToRead}
-               handleWantToRead={this.props.handleWantToRead}
-               optionWantToRead={this.props.optionWantToRead}
+               currentshelf={this.props.currentshelf2}
+               books={this.props.books}
                />
                <Read 
-               handlemove={this.props.handlemove} 
-               value={this.props.option}
-               Read={this.props.Read}
-               handleRead={this.props.handleRead}
-               optionRead={this.props.optionRead}
+               handlemove={this.props.handlemove}
+               currentshelf={this.props.currentshelf3}
+               books={this.props.books} 
                />
               </div>
             </div>
             <div className="open-search">
-              <Link  onClick={this.props.showSearch} to="/search">Add a book</Link>
+              <Link  onClick={this.props.showSearchPage} to="/search">Add a book</Link>
             </div>
             </div>
          );

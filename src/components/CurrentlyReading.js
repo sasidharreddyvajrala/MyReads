@@ -9,13 +9,15 @@ class CurrentlyReading extends React.Component{
         <h2 className="bookshelf-title">Currently Reading</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-          {this.props.currentlyReading.map((book)=>
+          {this.props.books
+          .filter((book)=>book.shelf==="currentlyReading")
+          .map((book)=>
             <li key={book.id}>
             <div className="book">
                 <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.url})` }}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
                   <div className="book-shelf-changer">
-                    <select value={this.props.optionCurrentlyReading}  onChange={this.props.handleCurrentlyReading}>
+                    <select value={this.props.currentshelf} onChange={(event)=>{this.props.handlemove(book,event.target.value);}}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
@@ -25,7 +27,7 @@ class CurrentlyReading extends React.Component{
                   </div>
                 </div>
                 <div className="book-title">{book.bookTitle}</div>
-                <div className="book-authors">{book.bookAuthors}</div>
+                <div className="book-authors">{book.authors}</div>
             </div>
             </li>
             )}

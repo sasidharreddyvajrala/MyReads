@@ -8,13 +8,14 @@ class Read extends React.Component{
         <h2 className="bookshelf-title">Read</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-          {this.props.Read.map((book)=>
+          {this.props.books.filter((book)=>book.shelf==="read")
+            .map((book)=>
             <li key={book.id}>
             <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.url})` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
                 <div className="book-shelf-changer">
-                  <select value={this.props.optionRead} onChange={this.props.handleRead} >
+                  <select value={this.props.currentshelf} onChange={(event)=>{this.props.handlemove(book,event.target.value)}}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading" >Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
@@ -24,7 +25,7 @@ class Read extends React.Component{
                 </div>
               </div>
               <div className="book-title">{book.bookTitle}</div>
-              <div className="book-authors">{book.bookAuthors}</div>
+              <div className="book-authors">{book.authors}</div>
             </div>
           </li>
           )}

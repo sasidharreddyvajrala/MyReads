@@ -19,7 +19,7 @@ import {Link} from 'react-router-dom'
                   you don't find a specific author or title. Every search is limited by search terms.
                 */
                  }
-                <input type="text" placeholder="Search by title or author" onChange={this.props.handleSearch}></input>
+                <input type="text" placeholder="Search by title or author" vlaue={this.props.query} onChange={(event)=>this.handleSearch(event.target.value)}></input>
               </div>
             </div>
             <div className="search-books-results">
