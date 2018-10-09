@@ -30,8 +30,6 @@ class BooksApp extends React.Component {
       BooksAPI.getAll().then((books)=>{this.setState({books})});
    };
     handleSearch=(event)=>{
-      //const query=this.setState({query:event.target.value});
-      console.log(event);
       BooksAPI.search(event).then(data=>{this.setState({bookResults:data})});
       console.log(this.state.bookResults);
     };
@@ -39,35 +37,34 @@ class BooksApp extends React.Component {
       this.setState({ showSearchPage:!(this.state.showSearchPage)});
     };
     
-  render() {
-    console.log(!(this.state.showSearchPage));
-    return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <Search handlemove={this.handlemove} 
-                  query={this.state.query}
-                  handleSearch={this.handleSearch}
-                  bookResults={this.state.bookResults}
-                  showSearchPage={this.showSearchPage}
-                  showSearch={this.state.showSearchPage}/>
-                  
-        ) : (
-          <div>
-            <MainPage 
-                  showSearchPage={this.showSearchPage}
-                  showSearch={this.state.showSearchPage}
-                  handlemove={this.handlemove}
-                  books={this.state.books}
-                  Read={this.state.Read}
-                  currentshelf1="currentlyReading"
-                  currentshelf2="wantToRead"
-                  currentshelf3="read"
-                  />
-          </div>
-        )}
-      </div>
-    )
-  }
+
+    render() {
+      return (
+        <BrowserRouter>
+        <Switch>
+            <Route path="/search" render={()=>
+            <Search handlemove={this.handlemove} 
+            query={this.state.query}
+            handleSearch={this.handleSearch}
+            bookResults={this.state.bookResults}
+            showSearchPage={this.showSearchPage}
+            showSearch={this.state.showSearchPage}
+            />}/>
+            <Route exact path="/" render={()=>
+             <MainPage 
+              showSearchPage={this.showSearchPage}
+              showSearch={this.state.showSearchPage}
+              handlemove={this.handlemove}
+              books={this.state.books}
+              Read={this.state.Read}
+              currentshelf1="currentlyReading"
+              currentshelf2="wantToRead"
+              currentshelf3="read"
+              />} />
+        </Switch>
+        </BrowserRouter> 
+      );
+    }
 }
 
 export default BooksApp

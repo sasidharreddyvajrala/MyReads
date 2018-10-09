@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { DebounceInput } from 'react-debounce-input';
+
 
 
     class Search extends React.Component{
@@ -19,13 +21,13 @@ import {Link} from 'react-router-dom'
                   you don't find a specific author or title. Every search is limited by search terms.
                 */
                  }
-                <input type="text" placeholder="Search by title or author" vlaue={this.props.query} onChange={(event)=>this.handleSearch(event.target.value)}></input>
+                <DebounceInput max={2} debounceTimeout={3000} type="text" placeholder="Search by title or author"  onChange={(e)=>this.props.handleSearch(e.target.value)} />
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              {this.props.bookResults && this.props.bookResults.map((bookResult)=>
-                        <li key={bookResult.id}>
+              {this.props.bookResults && this.props.bookResults.map((book)=>
+                        <li key={book.id}>
                         <div className="book">
                             <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 192, backgroundImage:`url(${bookResult.imageLinks ? bookResult.imageLinks.thumbnail :''})`}}></div>
@@ -39,8 +41,8 @@ import {Link} from 'react-router-dom'
                             </select>
                         </div>
                       </div>
-                            <div className="book-title">{bookResult.title ? bookResult.title : ''}</div>
-                            <div className="book-authors">{bookResult.authors ? bookResult.authors : ''}</div>
+                            <div className="book-title">{book.title ? book.title : ''}</div>
+                            <div className="book-authors">{book.authors ? book.authors : ''}</div>
                     </div>
                   </li>)}
               </ol>
