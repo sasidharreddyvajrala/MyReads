@@ -25,9 +25,12 @@ class BooksApp extends React.Component {
       console.log(books);
     })
   }
+  fetchAll=()=>{
+    BooksAPI.getAll().then((books)=>{this.setState({books})});
+  }
     handlemove=(book,shelf)=>{
-      BooksAPI.update(book,shelf);
-      BooksAPI.getAll().then((books)=>{this.setState({books})});
+      BooksAPI.update(book,shelf)
+      .then(resp => this.fetchAll()); 
    };
     handleSearch=(event)=>{
       BooksAPI.search(event).then(data=>{this.setState({bookResults:data})});
