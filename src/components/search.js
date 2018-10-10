@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { DebounceInput } from 'react-debounce-input';
-import Book from './bookshelf';
+import Book from './book';
 
 
 
